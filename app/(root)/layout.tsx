@@ -5,7 +5,6 @@ import '../globals.css';
 import { ClerkProvider } from '@clerk/nextjs/app-beta';
 import { TopBar, LeftSideBar, RightSideBar, BottomBar } from '../../components';
 
-
 const inter = Inter({ subsets: ['latin'] });
 
 type Props = {
@@ -23,7 +22,7 @@ export default function RootLayout({ children }: Props) {
 			<html lang='en' className={inter.className}>
 				<body>
 					<TopBar />
-					<main>
+					<main className='flex flex-row'>
 						<LeftSideBar />
 						<section className='main-container'>
 							<div className='w-full max-w-4xl'>{children}</div>
