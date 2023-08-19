@@ -3,6 +3,8 @@ import { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
 import '../globals.css';
 import { ClerkProvider } from '@clerk/nextjs/app-beta';
+import { TopBar, LeftSideBar, RightSideBar, BottomBar } from '../../components';
+
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,7 +21,17 @@ export default function RootLayout({ children }: Props) {
 	return (
 		<ClerkProvider>
 			<html lang='en' className={inter.className}>
-				<body>{children}</body>
+				<body>
+					<TopBar />
+					<main>
+						<LeftSideBar />
+						<section className='main-container'>
+							<div className='w-full max-w-4xl'>{children}</div>
+						</section>
+						<RightSideBar />
+					</main>
+					<BottomBar />
+				</body>
 			</html>
 		</ClerkProvider>
 	);
