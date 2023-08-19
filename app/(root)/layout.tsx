@@ -3,7 +3,10 @@ import { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
 import '../globals.css';
 import { ClerkProvider } from '@clerk/nextjs/app-beta';
-import { TopBar, LeftSideBar, RightSideBar, BottomBar } from '../../components';
+import BottomBar from '../../components/shared/BottomBar';
+import LeftSideBar from '../../components/shared/LeftSideBar';
+import RightSideBar from '../../components/shared/RightSideBar';
+import TopBar from '../../components/shared/TopBar';
 
 const inter = Inter({ subsets: ['latin'] });
 
