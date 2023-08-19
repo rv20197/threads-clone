@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
 import '../globals.css';
+import { ClerkProvider } from '@clerk/nextjs/app-beta';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,8 +17,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Props) {
 	return (
-		<html lang='en' className={inter.className}>
-			<body>{children}</body>
-		</html>
+		<ClerkProvider>
+			<html lang='en' className={inter.className}>
+				<body>{children}</body>
+			</html>
+		</ClerkProvider>
 	);
 }
