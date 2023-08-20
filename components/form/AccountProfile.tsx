@@ -16,6 +16,8 @@ import { UserDefaultValues } from '../../lib/default_values/user';
 import Image from 'next/image';
 import { ChangeEvent, useState } from 'react';
 import { Textarea } from '../ui/textarea';
+import { isBase64Image } from '../../lib/utils';
+import { useUploadThing } from '@/lib/uploadthing';
 
 type UserDataType = {
 	id: string | undefined;
@@ -33,6 +35,7 @@ type Props = {
 
 const AccountProfile = ({ user, btnTitle }: Props) => {
 	const [files, setFiles] = useState<File[]>([]);
+	const { startUpload } = useUploadThing('media');
 
 	const userDefaultValues: z.infer<typeof UserValidation> = {
 		profile_photo: user?.image as string,
@@ -67,8 +70,18 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
 		}
 	}
 
-	function onSubmit(values: z.infer<typeof UserValidation>) {
-		console.log(values);
+	async function onSubmit(values: z.infer<typeof UserValidation>) {
+		const blob = values.profile_photo;
+		const hasImageChanged = isBase64Image(blob);
+
+		if (hasImageChanged) {
+			const imgRes = await startUpload(files);
+			if (imgRes && imgRes[0].url) {
+				values.profile_photo = imgRes[0].url;
+			}
+		}
+
+		// TODO: Update user profile
 	}
 
 	return (
