@@ -27,7 +27,8 @@ export async function updateUser(userData: Params): Promise<void> {
 				name,
 				bio,
 				image,
-				path
+				path,
+				onboardedStatus: true
 			},
 			{
 				upsert: true
@@ -39,5 +40,19 @@ export async function updateUser(userData: Params): Promise<void> {
 		}
 	} catch (error: any) {
 		throw new Error(`Failed to create/update user: ${error.message}`);
+	}
+}
+
+export async function fetchUser(userId: string) {
+	connectToDB();
+	try {
+		const user = await User.findOne({ id: userId });
+		//.populate({
+		// 	path: 'communities',
+		// 	model: Community
+		// });
+		return user;
+	} catch (error: any) {
+		throw new Error(`Failed to fetch user: ${error.message}`);
 	}
 }
