@@ -128,7 +128,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
 					)}
 				/>
 
-<FormField
+				<FormField
 					control={form.control}
 					name='bio'
 					render={({ field }) => (
@@ -146,7 +146,9 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
 						</FormItem>
 					)}
 				/>
-				<Button type='submit'>{btnTitle}</Button>
+				<Button type='submit' className='bg-primary-500'>
+					{btnTitle}
+				</Button>
 			</form>
 		</Form>
 	);
