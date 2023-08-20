@@ -1,7 +1,7 @@
 'use server';
 import { revalidatePath } from 'next/cache';
-import Thread from '../../models/thread.model';
-import { User } from '../../models/user.model';
+import Thread from '../models/thread.model';
+import { User } from '../models/user.model';
 import { connectToDB } from '../mongoose.connection';
 
 type Params = {
@@ -16,7 +16,7 @@ export async function createThread(threadData: Params) {
 
 	try {
 		connectToDB();
-		
+
 		const createdThread = await Thread.create({
 			text,
 			author,

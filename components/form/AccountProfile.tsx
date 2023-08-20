@@ -13,7 +13,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { UserValidation } from '../../lib/validations/user';
-import { UserDefaultValues } from '../../lib/default_values/user';
+import { UserDefaultValues } from '../../lib/default-values/user';
 import Image from 'next/image';
 import { ChangeEvent, useState } from 'react';
 import { Textarea } from '../ui/textarea';

@@ -15,7 +15,7 @@ import { Textarea } from '../ui/textarea';
 
 import { usePathname, useRouter } from 'next/navigation';
 import { ThreadValidation } from '../../lib/validations/thread';
-import { ThreadDefaultValues } from '../../lib/default_values/thread';
+import { ThreadDefaultValues } from '../../lib/default-values/thread';
 import { createThread } from '../../lib/actions/thread.actions';
 
 type Props = {
