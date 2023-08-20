@@ -5,11 +5,9 @@ import * as z from 'zod';
 import {
 	Form,
 	FormControl,
-	FormDescription,
 	FormField,
 	FormItem,
-	FormLabel,
-	FormMessage
+	FormLabel
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -34,9 +32,15 @@ type Props = {
 };
 
 const AccountProfile = ({ user, btnTitle }: Props) => {
+	const userDefaultValues: z.infer<typeof UserValidation> = {
+		profile_photo: user?.image as string,
+		name: user?.name,
+		username: user?.username as string,
+		bio: user?.bio
+	};
 	const form = useForm({
 		resolver: zodResolver(UserValidation),
-		defaultValues: UserDefaultValues
+		defaultValues: userDefaultValues || UserDefaultValues
 	});
 
 	function onSubmit(values: z.infer<typeof UserValidation>) {
