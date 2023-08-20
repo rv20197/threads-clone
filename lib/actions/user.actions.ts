@@ -4,14 +4,17 @@ import { revalidatePath } from 'next/cache';
 import { User } from '../../models/user.model';
 import { connectToDB } from '../mongoose.connection';
 
-export async function updateUser(
-	userId: string,
-	username: string,
-	name: string,
-	bio: string,
-	image: string,
-	path: string
-): Promise<void> {
+type Params = {
+	userId: string | undefined;
+	username: string;
+	name: string;
+	bio: string;
+	image: string;
+	path: string;
+};
+
+export async function updateUser(userData: Params): Promise<void> {
+	const { userId, username, name, bio, image, path } = userData;
 	connectToDB();
 
 	try {
