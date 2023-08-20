@@ -1,6 +1,4 @@
 'use client';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import {
 	Form,
@@ -11,12 +9,14 @@ import {
 	FormMessage
 } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
 import { Textarea } from '../ui/textarea';
 
+import { createThread } from '@/lib/actions/thread.actions';
+import { ThreadDefaultValues } from '@/lib/default-values/thread';
+import { ThreadValidation } from '@/lib/validations/thread';
 import { usePathname, useRouter } from 'next/navigation';
-import { ThreadValidation } from '../../lib/validations/thread';
-import { ThreadDefaultValues } from '../../lib/default-values/thread';
-import { createThread } from '../../lib/actions/thread.actions';
 
 type Props = {
 	userId: string;

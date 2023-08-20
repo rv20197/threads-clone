@@ -1,12 +1,12 @@
-import type { Metadata } from 'next';
-import { ReactNode } from 'react';
-import { Inter } from 'next/font/google';
-import '../globals.css';
+import BottomBar from '@/components/shared/BottomBar';
+import LeftSideBar from '@/components/shared/LeftSideBar';
+import RightSideBar from '@/components/shared/RightSideBar';
+import TopBar from '@/components/shared/TopBar';
 import { ClerkProvider } from '@clerk/nextjs/app-beta';
-import BottomBar from '../../components/shared/BottomBar';
-import LeftSideBar from '../../components/shared/LeftSideBar';
-import RightSideBar from '../../components/shared/RightSideBar';
-import TopBar from '../../components/shared/TopBar';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import { ReactNode } from 'react';
+import '../globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 

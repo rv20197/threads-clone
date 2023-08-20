@@ -1,7 +1,5 @@
 'use client';
-import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
-import * as z from 'zod';
 import {
 	Form,
 	FormControl,
@@ -11,16 +9,18 @@ import {
 	FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { UserValidation } from '../../lib/validations/user';
-import { UserDefaultValues } from '../../lib/default-values/user';
-import Image from 'next/image';
-import { ChangeEvent, useState } from 'react';
-import { Textarea } from '../ui/textarea';
-import { isBase64Image } from '../../lib/utils';
+import { updateUser } from '@/lib/actions/user.actions';
+import { UserDefaultValues } from '@/lib/default-values/user';
 import { useUploadThing } from '@/lib/uploadthing';
-import { updateUser } from '../../lib/actions/user.actions';
+import { isBase64Image } from '@/lib/utils';
+import { UserValidation } from '@/lib/validations/user';
+import { zodResolver } from '@hookform/resolvers/zod';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
+import { ChangeEvent, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+import { Textarea } from '../ui/textarea';
 
 type UserDataType = {
 	id: string | undefined;

@@ -1,5 +1,5 @@
 import { currentUser } from '@clerk/nextjs';
-import AccountProfile from '../../../components/form/AccountProfile';
+import AccountProfile from '@/components/form/AccountProfile';
 
 async function Page() {
 	const user = await currentUser();

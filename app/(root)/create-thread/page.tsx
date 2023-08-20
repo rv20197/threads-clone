@@ -1,7 +1,7 @@
+import PostThread from '@/components/form/PostThread';
+import { fetchUser } from '@/lib/actions/user.actions';
 import { currentUser } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
-import { fetchUser } from '../../../lib/actions/user.actions';
-import PostThread from '../../../components/form/PostThread';
 
 async function Page() {
 	const user = await currentUser();
@@ -12,7 +12,7 @@ async function Page() {
 
 	if (!userInfo?.onboardedStatus) redirect('/onboarding');
 
-	const userId = userInfo._id.toString()
+	const userId = userInfo._id.toString();
 
 	return (
 		<>

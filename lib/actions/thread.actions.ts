@@ -2,16 +2,16 @@
 import { revalidatePath } from 'next/cache';
 import Thread from '../models/thread.model';
 import { User } from '../models/user.model';
-import { connectToDB } from '../mongoose.connection';
+import { connectToDB } from '@/lib/mongoose.connection';
 
-type Params = {
+type threadDataType = {
 	text: string;
 	author: string;
 	communityId: string | null;
 	path: string;
 };
 
-export async function createThread(threadData: Params) {
+export async function createThread(threadData: threadDataType) {
 	const { text, author, communityId, path } = threadData;
 
 	try {
@@ -35,7 +35,10 @@ export async function createThread(threadData: Params) {
 	}
 }
 
-export async function fetchPosts(pageNumber: number = 1, pageSize: number = 20) {
+export async function fetchPosts(
+	pageNumber: number = 1,
+	pageSize: number = 20
+) {
 	try {
 		connectToDB();
 
@@ -68,5 +71,40 @@ export async function fetchPosts(pageNumber: number = 1, pageSize: number = 20) 
 		return { posts, isNext };
 	} catch (error: any) {
 		throw new Error(`Failed to fetch posts: ${error.message}`);
+	}
+}
+
+export async function fetchThreadById(threadId: string) {
+	connectToDB();
+	try {
+		const thread = await Thread.findById(threadId)
+			.populate({
+				path: 'author',
+				model: User,
+				select: '_id id name image'
+			})
+			.populate({
+				path: 'children',
+				populate: [
+					{
+						path: 'author',
+						model: User,
+						select: '_id name parentId image'
+					},
+					{
+						path: 'children',
+						model: Thread,
+						populate: {
+							path: 'author',
+							model: User,
+							select: '_id name parentId image'
+						}
+					}
+				]
+			})
+			.exec();
+		return thread;
+	} catch (error: any) {
+		throw new Error(`Failed to fetch the thread: ${error.message}`);
 	}
 }

@@ -1,7 +1,7 @@
 'use client';
-import Link from 'next/link';
+import { sidebarLinks } from '@/constants';
 import Image from 'next/image';
-import { sidebarLinks } from '../../constants';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 type Props = {};
