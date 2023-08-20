@@ -12,7 +12,7 @@ async function Page() {
 
 	if (!userInfo?.onboardedStatus) redirect('/onboarding');
 
-	const userId = userInfo.id
+	const userId = userInfo._id.toString()
 
 	return (
 		<>
