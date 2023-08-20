@@ -14,7 +14,7 @@ import * as z from 'zod';
 import { Textarea } from '../ui/textarea';
 
 import { createThread } from '@/lib/actions/thread.actions';
-import { ThreadDefaultValues } from '@/lib/default-values/thread';
+import { ThreadDefaultValues } from '@/lib/default-values';
 import { ThreadValidation } from '@/lib/validations/thread';
 import { usePathname, useRouter } from 'next/navigation';
 

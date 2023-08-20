@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { updateUser } from '@/lib/actions/user.actions';
-import { UserDefaultValues } from '@/lib/default-values/user';
+import { UserDefaultValues } from '@/lib/default-values';
 import { useUploadThing } from '@/lib/uploadthing';
 import { isBase64Image } from '@/lib/utils';
 import { UserValidation } from '@/lib/validations/user';

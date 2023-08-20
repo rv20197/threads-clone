@@ -1,13 +1,20 @@
 'use server';
+import { connectToDB } from '@/lib/mongoose.connection';
 import { revalidatePath } from 'next/cache';
 import Thread from '../models/thread.model';
 import { User } from '../models/user.model';
-import { connectToDB } from '@/lib/mongoose.connection';
 
 type threadDataType = {
 	text: string;
 	author: string;
 	communityId: string | null;
+	path: string;
+};
+
+type commentDataType = {
+	threadId: string;
+	commentText: string;
+	userId: string;
 	path: string;
 };
 
@@ -106,5 +113,33 @@ export async function fetchThreadById(threadId: string) {
 		return thread;
 	} catch (error: any) {
 		throw new Error(`Failed to fetch the thread: ${error.message}`);
+	}
+}
+
+export async function addCommentToThread(commentData: commentDataType) {
+	const { threadId, commentText, userId, path } = commentData;
+	connectToDB();
+
+	try {
+		const originalThread = await Thread.findById(threadId);
+		if (!originalThread) {
+			throw new Error('Thread not found!');
+		}
+
+		const commentThread = new Thread({
+			text: commentText,
+			author: userId,
+			parentId: threadId
+		});
+
+		const savedCommentThread = await commentThread.save();
+
+		originalThread.children.push(savedCommentThread._id);
+
+		await originalThread.save();
+
+		revalidatePath(path);
+	} catch (error: any) {
+		throw new Error(`Failed to add comment: ${error.message}`);
 	}
 }
