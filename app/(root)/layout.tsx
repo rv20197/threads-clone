@@ -2,7 +2,8 @@ import BottomBar from '@/components/shared/BottomBar';
 import LeftSideBar from '@/components/shared/LeftSideBar';
 import RightSideBar from '@/components/shared/RightSideBar';
 import TopBar from '@/components/shared/TopBar';
-import { ClerkProvider } from '@clerk/nextjs/app-beta';
+import { ClerkProvider } from '@clerk/nextjs';
+import { dark } from '@clerk/themes';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
@@ -21,7 +22,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Props) {
 	return (
-		<ClerkProvider>
+		<ClerkProvider
+			appearance={{
+				baseTheme: dark
+			}}>
 			<html lang='en' className={inter.className}>
 				<body>
 					<TopBar />
