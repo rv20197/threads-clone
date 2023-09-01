@@ -40,6 +40,7 @@ const ThreadsTab = async ({ currentUserId, accountId, accountType }: Props) => {
           community={accountType === "Community" ? community : thread.community}
           createdAt={thread.createdAt}
           comments={thread.children}
+          likes={thread.likes}
         />
       ))}
     </section>

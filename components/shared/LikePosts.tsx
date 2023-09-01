@@ -1,6 +1,7 @@
 'use client';
 import { likeThread } from '@/lib/actions/thread.actions';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 type Props = {
    threadId: string;
@@ -8,8 +9,9 @@ type Props = {
 };
 
 const LikePosts = ({ threadId, currentUserId }: Props) => {
+   const pathname = usePathname();
    async function likeClickHandler() {
-      await likeThread(threadId, currentUserId);
+      await likeThread(threadId, currentUserId, pathname);
    }
 
    return (

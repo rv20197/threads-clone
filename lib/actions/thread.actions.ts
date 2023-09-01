@@ -246,7 +246,7 @@ export async function addCommentToThread({
    }
 }
 
-export async function likeThread(threadId: string, userId: string) {
+export async function likeThread(threadId: string, userId: string,path:string) {
    connectToDB();
    try {
       const user = await User.findOne({ id: userId });
@@ -265,7 +265,7 @@ export async function likeThread(threadId: string, userId: string) {
       }
 
       const likes = await Thread.findByIdAndUpdate(JSON.parse(threadId), originalThread, { new: true });
-
+      revalidatePath(path)
       return JSON.stringify(likes);
    } catch (error: any) {
       throw new Error(`Failed to like thread: ${error}`);
