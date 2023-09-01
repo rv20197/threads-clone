@@ -4,9 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-type Props = {};
-
-const BottomBar = (props: Props) => {
+const BottomBar = () => {
 	const pathname = usePathname();
 	return (
 		<section className='bottombar'>

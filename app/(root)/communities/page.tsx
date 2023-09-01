@@ -1,7 +1,4 @@
-
-type Props = {}
-
-const Page = async (props: Props) => {
+const Page = async () => {
   return (
     <section>
         <h1 className="head-text mb-10">Communities</h1>

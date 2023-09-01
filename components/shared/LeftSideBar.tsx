@@ -5,9 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 
-type Props = {};
-
-const LeftSideBar = (props: Props) => {
+const LeftSideBar = () => {
 	const pathname = usePathname();
 	const router = useRouter();
 	const {userId} = useAuth();

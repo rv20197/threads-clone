@@ -1,8 +1,4 @@
-import React from 'react';
-
-type Props = {};
-
-const RightSideBar = (props: Props) => {
+const RightSideBar = () => {
 	return (
 		<section className='custom-scrollbar rightsidebar'>
 			<div className='flex flex-1 flex-col justify-start'>

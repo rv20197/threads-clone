@@ -3,9 +3,7 @@ import { dark } from '@clerk/themes';
 import Image from 'next/image';
 import Link from 'next/link';
 
-type Props = {};
-
-const TopBar = (props: Props) => {
+const TopBar = () => {
 	return (
 		<nav className='topbar'>
 			<Link href='/' className='flex items-center gap-4'>
