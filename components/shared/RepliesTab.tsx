@@ -1,4 +1,3 @@
-import React from "react";
 import ThreadCard from "../cards/ThreadCard";
 import { currentUser } from "@clerk/nextjs";
 import { fetchUser } from "@/lib/actions/user.actions";
@@ -13,15 +12,7 @@ const RepliesTab = async () => {
 
   if (!userInfo?.onboardedStatus) redirect("/onboarding");
   const { posts } = await fetchPosts(1, 20, false, userInfo._id);
-  const replies: any[] = [];
-  //   posts.forEach((data) => {
-  //     console.log("author",data.author._id);
-  //     console.log("user",userInfo._id);
-  //     if (data.author._id === userInfo._id) {
-  //       console.log(data);
-  //       replies.push(data);
-  //     }
-  //   });
+
   return (
     <section className="mt-9 flex flex-col gap-10">
       {posts.map((thread: any) => (
