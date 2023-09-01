@@ -49,7 +49,7 @@ export async function updateUser({
         name,
         bio,
         image,
-        onboarded: true,
+        onboardedStatus: true,
       },
       { upsert: true }
     );

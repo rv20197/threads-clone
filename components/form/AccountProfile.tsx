@@ -88,7 +88,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
 
 		// TODO: Update user profile
 		const userData = {
-			userId: user.id,
+			userId: user.id as string,
 			username: values.username,
 			name: values.name,
 			bio: values.bio,

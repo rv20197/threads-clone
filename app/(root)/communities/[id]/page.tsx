@@ -18,7 +18,6 @@ async function Page({ params }: Props) {
   const user = await currentUser();
   if (!user) return null;
   const communityDetails = await fetchCommunityDetails(params.id);
-  console.log(communityDetails)
 
   return (
     <section>
