@@ -34,6 +34,12 @@ const Page = async (props: Props) => {
                     height={20}
                     className="rounded-full object-cover"
                   />
+                  <p className="!text-small-regular text-light-1">
+                    <span className="mr-1 text-primary-500">
+                      {act.author.name}
+                    </span>{" "}
+                    replied to your thread
+                  </p>
                 </article>
               </Link>
             ))}
