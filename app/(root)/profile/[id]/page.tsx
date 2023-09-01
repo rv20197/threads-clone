@@ -55,9 +55,17 @@ async function Page({ params }: Props) {
               </TabsTrigger>
             ))}
           </TabsList>
-          {profileTabs.map((tab, i: Key)=>(
-            <TabsContent value={tab.value} key={i} className="w-full text-light-1">
-              <ThreadsTab currentUserId={user.id} accountId={userInfo._id} accountType="User"/>
+          {profileTabs.map((tab, i: Key) => (
+            <TabsContent
+              value={tab.value}
+              key={i}
+              className="w-full text-light-1"
+            >
+              <ThreadsTab
+                currentUserId={user.id}
+                accountId={userInfo._id}
+                accountType="User"
+              />
             </TabsContent>
           ))}
         </Tabs>
