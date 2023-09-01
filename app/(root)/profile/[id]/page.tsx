@@ -38,7 +38,7 @@ async function Page({ params }: Props) {
         <Tabs defaultValue="threads" className="w-full">
           <TabsList className="tab justify-evenly">
             {profileTabs.map((tab, i: Key) => (
-              <TabsTrigger key={i} value={tab.value}>
+              <TabsTrigger key={i} value={tab.value} className="tab">
                 <Image
                   src={tab.icon}
                   alt={tab.label}
