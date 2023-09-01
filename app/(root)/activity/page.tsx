@@ -4,9 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-type Props = {};
 
-const Page = async (props: Props) => {
+const Page = async () => {
   const user = await currentUser();
 
   if (!user) return null;
