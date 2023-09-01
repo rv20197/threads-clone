@@ -2,6 +2,8 @@ import { formatDateString } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import DeleteThread from '../form/DeleteThread';
+import LikePosts from '../shared/LikePosts';
+import { fetchUser } from '@/lib/actions/user.actions';
 
 type Props = {
    id: string;
@@ -27,7 +29,8 @@ type Props = {
    isComment?: boolean;
 };
 
-const ThreadCard = ({ id, currentUserId, parentId, content, author, community, createdAt, comments, isComment }: Props) => {
+const ThreadCard = async ({ id, currentUserId, parentId, content, author, community, createdAt, comments, isComment }: Props) => {
+
    return (
       <article className={`flex w-full flex-col rounded-xl  ${isComment ? 'px-0 xs:px-7' : 'bg-dark-2 p-7'}`}>
          <div className='flex items-start justify-between'>
@@ -52,7 +55,7 @@ const ThreadCard = ({ id, currentUserId, parentId, content, author, community, c
                   <p className='mt-2 text-small-regular text-light-2'>{content}</p>
                   <div className={`${isComment && 'mb-10'} mt-5 flex flex-col gap-3`}>
                      <div className='flex gap-3.5'>
-                        <Image src='/assets/heart-gray.svg' alt='like' width={24} height={24} className='cursor-pointer object-contain' />
+                        <LikePosts threadId={JSON.stringify(id)} currentUserId={currentUserId}/>
                         <Link href={`/thread/${id}`}>
                            <Image src='/assets/reply.svg' alt='reply' width={24} height={24} className='cursor-pointer object-contain' />
                         </Link>
