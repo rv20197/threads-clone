@@ -7,15 +7,35 @@ import { connectToDB } from "../mongoose.connection";
 import User from "../models/user.model";
 import Thread from "../models/thread.model";
 import Community from "../models/community.model";
+import { FilterQuery } from "mongoose";
 
-export async function fetchPosts(pageNumber = 1, pageSize = 20) {
+export async function fetchPosts(
+  pageNumber = 1,
+  pageSize = 20,
+  doFetchParentThreads = true,
+  currentUserId = null
+) {
   connectToDB();
 
   // Calculate the number of posts to skip based on the page number and page size.
   const skipAmount = (pageNumber - 1) * pageSize;
 
-  // Create a query to fetch the posts that have no parent (top-level threads) (a thread that is not a comment/reply).
-  const postsQuery = Thread.find({ parentId: { $in: [null, undefined] } })
+  // Create a query to fetch the posts
+  let filter: FilterQuery<typeof Thread> = {
+    parentId: { $in: [null, undefined] },
+  };
+  if (!doFetchParentThreads) {
+    filter = {
+      $and: [
+        {
+          $or: [{ parentId: { $ne: null } }, { parentId: { $ne: undefined } }],
+        },
+        { author: currentUserId },
+      ],
+    };
+  }
+
+  const postsQuery = Thread.find(filter)
     .sort({ createdAt: "desc" })
     .skip(skipAmount)
     .limit(pageSize)

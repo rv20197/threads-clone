@@ -1,4 +1,5 @@
 import ProfileHeader from "@/components/shared/ProfileHeader";
+import RepliesTab from "@/components/shared/RepliesTab";
 import ThreadsTab from "@/components/shared/ThreadsTab";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { profileTabs } from "@/constants";
@@ -61,11 +62,15 @@ async function Page({ params }: Props) {
               key={i}
               className="w-full text-light-1"
             >
-              <ThreadsTab
-                currentUserId={user.id}
-                accountId={userInfo._id}
-                accountType="User"
-              />
+              {tab.value === "replies" ? (
+                <RepliesTab />
+              ) : (
+                <ThreadsTab
+                  currentUserId={user.id}
+                  accountId={userInfo._id}
+                  accountType="User"
+                />
+              )}
             </TabsContent>
           ))}
         </Tabs>
