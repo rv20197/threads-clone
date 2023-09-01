@@ -1,8 +1,9 @@
-'use server';
+"use server";
 
-import { revalidatePath } from 'next/cache';
-import { User } from '../models/user.model';
-import { connectToDB } from '../mongoose.connection';
+import { revalidatePath } from "next/cache";
+import { User } from "../models/user.model";
+import { connectToDB } from "../mongoose.connection";
+import Thread from "../models/thread.model";
 
 type Params = {
 	userId: string | undefined;
@@ -20,7 +21,7 @@ export async function updateUser(userData: Params): Promise<void> {
 	try {
 		await User.findOneAndUpdate(
 			{
-				id: userId
+				id: userId,
 			},
 			{
 				username: username.toLowerCase(),
@@ -28,14 +29,14 @@ export async function updateUser(userData: Params): Promise<void> {
 				bio,
 				image,
 				path,
-				onboardedStatus: true
+				onboardedStatus: true,
 			},
 			{
-				upsert: true
+				upsert: true,
 			}
 		);
 
-		if (path === '/profile/edit') {
+		if (path === "/profile/edit") {
 			revalidatePath(path);
 		}
 	} catch (error: any) {
@@ -51,8 +52,32 @@ export async function fetchUser(userId: string) {
 		// 	path: 'communities',
 		// 	model: Community
 		// });
+		console.log(user)
 		return user;
 	} catch (error: any) {
 		throw new Error(`Failed to fetch user: ${error.message}`);
+	}
+}
+
+export async function fetchUserPosts(userId: string) {
+	connectToDB();
+	try {
+		// Find all threads authored by user
+		const threads = await User.findOne({ _id: userId }).populate({
+			path: "threads",
+			model: Thread,
+			populate: {
+				path: "children",
+				model: Thread,
+				populate: {
+					path: "author",
+					model: User,
+					select: "name image id",
+				},
+			},
+		});
+		return threads;
+	} catch (error: any) {
+		throw new Error(`Failed to fetch user posts: ${error.message}`);
 	}
 }
