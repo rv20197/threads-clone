@@ -14,8 +14,11 @@ const ThreadsTab = async ({ currentUserId, accountId, accountType }: Props) => {
     accountType === "Community"
       ? await fetchCommunityPosts(accountId)
       : await fetchUserPosts(accountId);
-
   if (!result) redirect("/");
+  const community = {
+    name: result.name,
+    image: result.image,
+  };
   return (
     <section className="mt-9 flex flex-col gap-10">
       {result?.threads.map((thread: any) => (
@@ -34,7 +37,7 @@ const ThreadsTab = async ({ currentUserId, accountId, accountType }: Props) => {
                   id: thread.author.id,
                 }
           }
-          community={thread.community}
+          community={accountType === "Community" ? community : thread.community}
           createdAt={thread.createdAt}
           comments={thread.children}
         />
