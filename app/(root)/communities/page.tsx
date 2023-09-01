@@ -5,7 +5,13 @@ import { fetchUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
-const Page = async () => {
+type Params = {
+  searchParams: {
+    [key: string]: string | undefined;
+  };
+};
+
+const Page = async ({ searchParams }: Params) => {
   const user = await currentUser();
 
   if (!user) return null;
@@ -16,8 +22,8 @@ const Page = async () => {
 
   // Fetch communities
   const results = await fetchCommunities({
-    searchString: "",
-    pageNumber: 1,
+    searchString: searchParams.q,
+    pageNumber: searchParams?.page ? +searchParams.page : 1,
     pageSize: 25,
   });
 
@@ -29,7 +35,7 @@ const Page = async () => {
         <SearchBar routeType="communities" />
       </div>
 
-      <div className="mt-14 flex flex-col gap-9">
+      <div className="mt-14 flex flex-wrap gap-4">
         {results.communities.length === 0 ? (
           <p className="no-result">No communities.</p>
         ) : (

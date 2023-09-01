@@ -4,7 +4,13 @@ import { fetchUser, fetchUsers } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
-const Page = async () => {
+type Params = {
+  searchParams: {
+    [key: string]: string | undefined;
+  };
+};
+
+const Page = async ({ searchParams }: Params) => {
   const user = await currentUser();
 
   if (!user) return null;
@@ -16,8 +22,8 @@ const Page = async () => {
   // Fetch Users
   const results = await fetchUsers({
     userId: user.id,
-    searchString: "",
-    pageNumber: 1,
+    searchString: searchParams.q,
+    pageNumber: searchParams?.page ? +searchParams.page : 1,
     pageSize: 25,
   });
 
