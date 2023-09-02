@@ -1,5 +1,13 @@
 import { SignIn } from "@clerk/nextjs";
+import Head from "next/head";
 
 export default function Page() {
-  return <SignIn />;
+  return (
+     <>
+        <Head>
+           <title>Sign in</title>
+        </Head>
+        <SignIn />
+     </>
+  );
 }
